@@ -1,0 +1,23 @@
+---
+https://martinfowler.com/articles/201701-event-driven.html
+
+Event patterns:
+
+- Event notification
+  (talks back to the sender)
+
+- Event-carried state transfer
+  (knows what to do)
+
+- Event sourcing
+  (git)
+
+- CQRS: https://martinfowler.com/bliki/CQRS.html
+  (command query responsibility segregation) 
+
+---
+https://perlmaven.com/fetching-several-web-pages-in-parallel-using-anyevent
+
+serial.pl
+parallel.pl
+limit.pl
