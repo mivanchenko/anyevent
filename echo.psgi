@@ -2,6 +2,10 @@
 
 # https://perlmaven.com/asynchronous-web-server-with-psgi-and-twiggy
 
+# Usage:
+# `twiggy echo.psgi`
+# access at 127.0.0.1:5000
+
 use strict;
 use warnings;
 
