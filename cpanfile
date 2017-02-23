@@ -2,3 +2,5 @@
 requires 'HTTP::Tiny';
 requires 'AnyEvent';
 requires 'AnyEvent::HTTP';
+
+requires 'Twiggy';
