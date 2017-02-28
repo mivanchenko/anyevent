@@ -7,22 +7,27 @@ use 5.010;
 use AnyEvent;
 use AnyEvent::HTTP;
 
+#	http://wz.lviv.ua/interview/192226-pavlo-hrytsenko-mova-tse-te-shcho-viazhe-pokolinnia-z-pokolinniam-viazhe-terytorii
 my @urls = qw(
-	http://wz.lviv.ua/interview/192226-pavlo-hrytsenko-mova-tse-te-shcho-viazhe-pokolinnia-z-pokolinniam-viazhe-terytorii
+	http://127.0.0.1:5000
 );
+
+my @htmls;
+
+my $dest_file = '1.html';
+
+my $cv = AnyEvent->condvar;
 
 my $count = 0;
 my $max   = 3;
-
-my $dest_file = 'news1.html';
-
-my $cv = AnyEvent->condvar;
 
 for ( 1 .. $max ) {
 	download();
 }
 
 $cv->recv;
+
+say substr( $htmls[0], 0, 10 );
 
 sub download {
 	return if $count >= $max;
@@ -41,6 +46,7 @@ sub download {
 		say "Received [$url]: " . length $html;
 		open my $fh, '>', $dest_file;
 		print $fh $html;
+		push @htmls, $html;
 		close $fh;
 
 		$count--;

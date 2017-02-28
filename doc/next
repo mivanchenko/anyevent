@@ -1,0 +1,6 @@
+Incorporate AnyEvent::Plackup in the program instead of `twiggy echo.psgi`
+
+Have a look at:
+https://metacpan.org/pod/AnyEvent::Delay
+https://metacpan.org/pod/AnyEvent::Task
+for text extraction / image extraction processing
