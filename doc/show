@@ -4,6 +4,11 @@ time ./parallel.pl
 
 time ./limit.pl -3
 
-[echo.psgi] twiggy echo.psgi
+# echo.psgi
+twiggy echo.psgi
 
-[rsska.pl] twiggy htmls.psgi
+# rsska.pl
+twiggy htmls.psgi
+l ../dest
+./rsska.pl
+l ../dest

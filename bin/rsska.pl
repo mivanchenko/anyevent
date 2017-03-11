@@ -7,14 +7,15 @@ use 5.010;
 use AnyEvent;
 use AnyEvent::HTTP;
 
-#	http://wz.lviv.ua/interview/192226-pavlo-hrytsenko-mova-tse-te-shcho-viazhe-pokolinnia-z-pokolinniam-viazhe-terytorii
+# page 1:
+# http://wz.lviv.ua/interview/192226-pavlo-hrytsenko-mova-tse-te-shcho-viazhe-pokolinnia-z-pokolinniam-viazhe-terytorii
 my @urls = qw(
-	http://127.0.0.1:5000
+	http://127.0.0.1:5000?page=1
 );
 
-my @htmls;
+#my @htmls;
 
-my $dest_file = '1.html';
+my $dest_dir  = '../dest/';
 
 my $cv = AnyEvent->condvar;
 
@@ -26,8 +27,6 @@ for ( 1 .. $max ) {
 }
 
 $cv->recv;
-
-say substr( $htmls[0], 0, 10 );
 
 sub download {
 	return if $count >= $max;
@@ -44,9 +43,12 @@ sub download {
 	http_get $url, sub {
 		my ($html) = @_;
 		say "Received [$url]: " . length $html;
-		open my $fh, '>', $dest_file;
+
+		my $dest_path = $dest_dir . $count . '.html';
+		open my $fh, '>', $dest_path
+			or die "Can't write to [$dest_path]";
 		print $fh $html;
-		push @htmls, $html;
+#		push @htmls, $html;
 		close $fh;
 
 		$count--;
