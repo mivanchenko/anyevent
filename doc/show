@@ -1,3 +1,5 @@
+cd bin
+
 time ./serial.pl
 
 time ./parallel.pl

@@ -9,11 +9,13 @@ use AnyEvent::HTTP;
 
 # page 1:
 # http://wz.lviv.ua/interview/192226-pavlo-hrytsenko-mova-tse-te-shcho-viazhe-pokolinnia-z-pokolinniam-viazhe-terytorii
+# page 2:
+# http://glavcom.ua/interviews/direktor-institutu-ukrajinskoji-movi-pavlo-gricenko-movni-kvoti-ce-lyapas-usim-ukrajincyam-402601.html
+
 my @urls = qw(
 	http://127.0.0.1:5000?page=1
+	http://127.0.0.1:5000?page=2
 );
-
-#my @htmls;
 
 my $dest_dir  = '../dest/';
 
@@ -44,12 +46,7 @@ sub download {
 		my ($html) = @_;
 		say "Received [$url]: " . length $html;
 
-		my $dest_path = $dest_dir . $count . '.html';
-		open my $fh, '>', $dest_path
-			or die "Can't write to [$dest_path]";
-		print $fh $html;
-#		push @htmls, $html;
-		close $fh;
+		save( $count, $html );
 
 		$count--;
 		$cv->end;
@@ -58,5 +55,18 @@ sub download {
 		download();
 	};
 	return 1;
+}
+
+sub save {
+	my ( $count, $html ) = @_;
+
+	my $dest_path = $dest_dir . $count . '.html';
+	open my $fh, '>', $dest_path
+		or die "Can't write to [$dest_path]";
+	print $fh $html;
+	close $fh;
+
+	sleep 5;
+	say "Saved [$count] " . length $html;
 }
 
